@@ -31,6 +31,8 @@ export default async function () {
     .update(body)
     .digest("hex");
 
+  console.log({ body, signature });
+
   const webhook = await got
     .post(DARTUNN_WEBHOOK, {
       body,
@@ -41,11 +43,9 @@ export default async function () {
       },
     })
     .then(
-      (response) => response.body,
+      (response) => console.log(response.body),
       ({ code }) => console.error(code)
     );
-
-  console.log({ tunnel, webhook });
 
   tunnel.on("request", (info) => {
     console.log({ info });
