@@ -1,0 +1,23 @@
+{
+  "name": "dartunn",
+  "scripts": {
+    "build": "tsc",
+    "start": "pm2 start build/index.js --name dartunn",
+    "stop": "pm2 stop dartunn"
+  },
+  "main": "build/index.js",
+  "type": "module",
+  "dependencies": {
+    "dotenv": "14.2.0",
+    "got": "^12.0.1",
+    "localtunnel": "2.0.2",
+    "pm2": "5.1.2"
+  },
+  "devDependencies": {
+    "@types/localtunnel": "2.0.1",
+    "typescript": "4.5.5"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}
