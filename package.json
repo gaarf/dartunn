@@ -2,6 +2,7 @@
   "name": "dartunn",
   "scripts": {
     "build": "tsc",
+    "prestart": "npm run build",
     "start": "pm2 start dist/index.js --name dartunn",
     "stop": "pm2 stop dartunn"
   },
@@ -12,11 +13,11 @@
     "got": "12.0.1",
     "localtunnel": "2.0.2",
     "pm2": "5.1.2",
-    "tiny-invariant": "1.2.0"
+    "tiny-invariant": "1.2.0",
+    "typescript": "4.5.5"
   },
   "devDependencies": {
-    "@types/localtunnel": "2.0.1",
-    "typescript": "4.5.5"
+    "@types/localtunnel": "2.0.1"
   },
   "engines": {
     "node": ">=14"
