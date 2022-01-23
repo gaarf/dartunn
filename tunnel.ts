@@ -1,10 +1,7 @@
+import invariant from "tiny-invariant";
 import localtunnel from "localtunnel";
 import { createHmac } from "crypto";
 import got from "got";
-import dotenv from "dotenv";
-import invariant from "tiny-invariant";
-
-dotenv.config();
 
 const {
   DARTUNN_LOCAL_PORT,
@@ -18,7 +15,7 @@ invariant(DARTUNN_LOCAL_PORT);
 invariant(DARTUNN_WEBHOOK);
 invariant(DARTUNN_SECRET);
 
-(async function main() {
+export default async function () {
   const tunnel = await localtunnel({
     port: Number(DARTUNN_LOCAL_PORT),
     local_host: DARTUNN_LOCAL_HOST,
@@ -57,4 +54,4 @@ invariant(DARTUNN_SECRET);
   tunnel.on("error", (error) => {
     console.log({ error });
   });
-})();
+}
