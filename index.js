@@ -4,5 +4,5 @@ register();
 const dotenv = require("dotenv");
 dotenv.config();
 
-const { default: tunnel } = require("./tunnel");
+const { default: tunnel } = require("./src/tunnel");
 tunnel();
