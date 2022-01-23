@@ -1,6 +1,8 @@
 import localtunnel from "localtunnel";
 import { createHmac } from "crypto";
+import got from "got";
 import dotenv from "dotenv";
+import invariant from "tiny-invariant";
 
 dotenv.config();
 
@@ -11,6 +13,10 @@ const {
   DARTUNN_WEBHOOK,
   DARTUNN_SECRET,
 } = process.env;
+
+invariant(DARTUNN_LOCAL_PORT);
+invariant(DARTUNN_WEBHOOK);
+invariant(DARTUNN_SECRET);
 
 (async function main() {
   const tunnel = await localtunnel({
@@ -28,8 +34,6 @@ const {
     .update(body)
     .digest("hex");
 
-  const { default: got } = await import("got");
-
   const webhook = await got
     .post(DARTUNN_WEBHOOK, {
       body,
@@ -41,15 +45,16 @@ const {
     })
     .then(
       (response) => response.body,
-      ({ code }) => console.error(code));
+      ({ code }) => console.error(code)
+    );
 
   console.log({ tunnel, webhook });
 
-  tunnel.on("error", (error) => {
-    console.log({ error });
+  tunnel.on("request", (info) => {
+    console.log({ info });
   });
 
-  tunnel.on("close", () => {
-    process.exit();
+  tunnel.on("error", (error) => {
+    console.log({ error });
   });
 })();
