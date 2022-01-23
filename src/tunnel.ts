@@ -16,15 +16,17 @@ invariant(DARTUNN_WEBHOOK);
 invariant(DARTUNN_SECRET);
 
 export default async function () {
+  const timestamp = Date.now();
+
   const tunnel = await localtunnel({
     port: Number(DARTUNN_LOCAL_PORT),
     local_host: DARTUNN_LOCAL_HOST,
-    subdomain: DARTUNN_SUBDOMAIN,
+    subdomain: `${DARTUNN_SUBDOMAIN}-${timestamp}`,
   });
 
   const body = JSON.stringify({
     url: tunnel.url,
-    timestamp: Date.now(),
+    timestamp,
   });
 
   const signature = createHmac("sha256", DARTUNN_SECRET)
