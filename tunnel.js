@@ -15,7 +15,7 @@ invariant(DARTUNN_WEBHOOK);
 invariant(DARTUNN_SECRET);
 
 module.exports = async function () {
-  const got = await import("got");
+  const { default: got } = await import("got");
 
   const timestamp = Date.now();
 
