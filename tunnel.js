@@ -1,7 +1,6 @@
 const invariant = require("tiny-invariant");
 const localtunnel = require("localtunnel");
 const { createHmac } = require("crypto");
-const got = require("got");
 
 const {
   DARTUNN_LOCAL_PORT,
@@ -16,6 +15,8 @@ invariant(DARTUNN_WEBHOOK);
 invariant(DARTUNN_SECRET);
 
 module.exports = async function () {
+  const got = await import("got");
+
   const timestamp = Date.now();
 
   const tunnel = await localtunnel({
